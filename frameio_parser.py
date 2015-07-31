@@ -1,5 +1,11 @@
 """Frame.io Comment Export Parser
 (Eventually will...) Takes a "export.txt" in the same directory and converts it into a usable format for pasting into GoogleSheets.
+
+Looks for comments of this format:
+CALLOUT: Command Name | Keyboard Shortcut
+SECTION HEADING: This is The Heading
+SECTION: Section Heading
+
 """
 
 import re
@@ -49,9 +55,37 @@ def main():
             comment = line[lead_in_length:]
             print "Comment: ", comment
 
-            callout_string = "CALLOUT: ".lower()
-            if callout_string == comment[:len(callout_string)].lower():
-                print "This is a callout!"
+
+            #Get the keyboard callouts
+            callout_pattern = "CALLOUT: ".lower()
+            callout_pattern_length = len(callout_pattern)
+
+            if comment[:callout_pattern_length].lower() == callout_pattern:
+                callout_string = comment[callout_pattern_length:]
+
+                #Get the first and second halves, don't split the second half if you see more "|"
+                callout_components = callout_string.split("|", 1)
+
+                def strip_components(components):
+                    new_components = []
+                    for component in components:
+                        new_components.append(component.strip())
+                    return new_components
+
+                callout_components = strip_components(callout_components)
+
+                print callout_components
+
+                command_name = callout_components[0]
+                keyboard_shortcut = ""
+
+                if len(callout_components) > 1:
+                    keyboard_shortcut = callout_components[1]
+
+                print "Command: ", command_name
+                print "Keyboard Shortcut: ", keyboard_shortcut
+
+
 
 
 
