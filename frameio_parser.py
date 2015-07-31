@@ -1,5 +1,5 @@
 """Frame.io Comment Export Parser
-(Eventually will...) Take "export.txt" from the script's directory and convert it a tab-delimited format
+(Eventually will...) Take "comments.txt" from the script's directory and convert it a tab-delimited format
  for pasting into GoogleSheets.
 
  It looks for comments in a format extremely particular to my workflow, and is probably not of general use without
@@ -12,7 +12,7 @@ INFO: Longer strings should go in here. Yep, that's definitely true.
 
 It also gracefully handles these typos / alternates:
 SECTION:
-SECTOIN: 
+SECTOIN:
 SECTION HEADING:
 SECTOIN HEADING
 HEADING
@@ -80,7 +80,7 @@ def main():
 
         return True
 
-    with open('export.txt') as f:
+    with open('comments.txt') as f:
         lines = f.readlines()
 
         headings = ["ID",
