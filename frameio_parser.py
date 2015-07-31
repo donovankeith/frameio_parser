@@ -17,6 +17,19 @@ SECTION HEADING:
 SECTOIN HEADING
 HEADING
 HEADER
+
+TO DO
+-----
+
+- [ ] Handle "&gt;" => ">" conversion
+- [ ] Do a more thorough parsing of all content, not just the comments you most care about
+- [ ] Write a Frame.io video comments class
+- [ ] Generate a TOC based on chapter headings
+- [ ] Add a few meaningful characters to the filename
+- [ ] Export markers than can be imported into Camtasia (if that's possible)
+- [ ] Auto-Generate the Google Spreadsheet
+- [ ] Format the Google Sheet more intelligently
+
 """
 
 import os
@@ -119,10 +132,10 @@ def main():
             print "-------------------"
             print "Comment: ", comment
 
-            section_format = " \t%s\t \t \t \t \t%s\t \t%s"
+            section_format = " \t%s\t\t\t\t\t%s\t\t%s"
 
             callout_types = [
-                ("CALLOUT: ", " \t%s\t%s\t%s"),
+                ("CALLOUT: ", " \t%s\t%s\t\t%s"),
 
                 ("SECTION: ", section_format),
                 ("SECTOIN: ", section_format),
@@ -130,7 +143,7 @@ def main():
                 ("SECTOIN HEADING: ", section_format),
                 ("HEADING: ", section_format),
                 ("HEADER: ", section_format),
-                ("INFO: ", " \t%s\t \t \t \t \t \t \t \t \t%s %s")
+                ("INFO: ", " \t%s\t\t\t\t\t\t\t\t\t%s %s")
             ]
 
             for callout_type in callout_types:
