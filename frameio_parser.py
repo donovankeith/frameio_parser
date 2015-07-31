@@ -8,7 +8,15 @@ SECTION: Section Heading
 
 """
 
-import re
+import os
+
+def copy_to_clipboard(text):
+    """Copy text to OS clipboard.
+    Source: http://stackoverflow.com/questions/11063458/python-script-to-copy-text-to-clipboard
+    Might only be MacOS compatible
+    """
+
+    os.system("echo '%s' | pbcopy" % text)
 
 def main():
     timecode_style = "00:00:00:00"
@@ -55,12 +63,12 @@ def main():
             print "-------------------"
             print "Comment: ", comment
 
-            def get_callout(comment):
+            def get_callout(comment, callout_pattern="CALLOUT: ", row_format=" \t%s\t%s\t%s"):
                 if not comment:
                     return
 
                 #Get the keyboard callouts
-                callout_pattern = "CALLOUT: ".lower()
+                callout_pattern = callout_pattern.lower()
                 callout_pattern_length = len(callout_pattern)
 
                 if comment[:callout_pattern_length].lower() == callout_pattern:
@@ -77,13 +85,13 @@ def main():
 
                     callout_components = strip_components(callout_components)
 
-                    command_name = callout_components[0]
-                    keyboard_shortcut = ""
+                    first_half = callout_components[0]
+                    second_half = ""
 
                     if len(callout_components) > 1:
-                        keyboard_shortcut = callout_components[1]
+                        second_half = callout_components[1]
 
-                    return timecode_string, command_name, keyboard_shortcut
+                    return row_format % (timecode_string, first_half, second_half)
 
             callout = get_callout(comment)
             if callout:
@@ -102,19 +110,16 @@ def main():
                     "AdditionalInfo",
                     "AdditionalInfoBar"]
 
-        header = ""
+        output = ""
         for heading in headings:
-            header += (heading + "\t")
-        header += "\n"
+            output += (heading + "\t")
+        output += "\n"
 
-        print header
-        for timecode_string, command_name, keyboard_shortcut in callouts:
-            print " \t%s\t%s\t%s" % (timecode_string, command_name, keyboard_shortcut)
+        for callout in callouts:
+            output += (callout + "\n")
 
-
-
-
-
+        print output
+        copy_to_clipboard(output)
 
 if __name__ == "__main__":
     main()
