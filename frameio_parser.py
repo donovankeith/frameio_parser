@@ -7,7 +7,6 @@ import re
 def main():
     timecode_style = "00:00:00:00"
     timecode_length = len(timecode_style)
-    keywords = ["CALLOUT", "SECTION", "INFO"]
 
     def is_timecode(stub):
         """Return True if `stub` matches pattern ##:##:##:##"""
@@ -50,6 +49,9 @@ def main():
             comment = line[lead_in_length:]
             print "Comment: ", comment
 
+            callout_string = "CALLOUT: ".lower()
+            if callout_string == comment[:len(callout_string)].lower():
+                print "This is a callout!"
 
 
 
