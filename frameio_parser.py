@@ -29,9 +29,18 @@ def main():
 
         return True
 
+    with open('target.txt') as f:
+        lines = f.readlines()
+
+        print "TARGET"
+
+        for line in lines:
+            print line
+
     with open('export.txt') as f:
         lines = f.readlines()
 
+        callouts = []
         for line in lines:
             #Don't read in lines that don't have timecode style + " - " delimeter
             if len(line) < timecode_length + 3:
@@ -46,44 +55,69 @@ def main():
             #Convert the timecode chunks into usable ints
             hour, minute, second, frame = map(int, timecode_string.split(":"))
 
-            print line
-
             #Get the callouts
             lead_in = timecode_string + " - "
             lead_in_length = len(lead_in)
 
             comment = line[lead_in_length:]
+            print "-------------------"
             print "Comment: ", comment
 
+            def get_callout(comment):
+                if not comment:
+                    return
 
-            #Get the keyboard callouts
-            callout_pattern = "CALLOUT: ".lower()
-            callout_pattern_length = len(callout_pattern)
+                #Get the keyboard callouts
+                callout_pattern = "CALLOUT: ".lower()
+                callout_pattern_length = len(callout_pattern)
 
-            if comment[:callout_pattern_length].lower() == callout_pattern:
-                callout_string = comment[callout_pattern_length:]
+                if comment[:callout_pattern_length].lower() == callout_pattern:
+                    callout_string = comment[callout_pattern_length:]
 
-                #Get the first and second halves, don't split the second half if you see more "|"
-                callout_components = callout_string.split("|", 1)
+                    #Get the first and second halves, don't split the second half if you see more "|"
+                    callout_components = callout_string.split("|", 1)
 
-                def strip_components(components):
-                    new_components = []
-                    for component in components:
-                        new_components.append(component.strip())
-                    return new_components
+                    def strip_components(components):
+                        new_components = []
+                        for component in components:
+                            new_components.append(component.strip())
+                        return new_components
 
-                callout_components = strip_components(callout_components)
+                    callout_components = strip_components(callout_components)
 
-                print callout_components
+                    command_name = callout_components[0]
+                    keyboard_shortcut = ""
 
-                command_name = callout_components[0]
-                keyboard_shortcut = ""
+                    if len(callout_components) > 1:
+                        keyboard_shortcut = callout_components[1]
 
-                if len(callout_components) > 1:
-                    keyboard_shortcut = callout_components[1]
+                    return timecode_string, command_name, keyboard_shortcut
 
-                print "Command: ", command_name
-                print "Keyboard Shortcut: ", keyboard_shortcut
+            callout = get_callout(comment)
+            if callout:
+                callouts.append(callout)
+
+        headings = ["ID",
+                    "Timecode",
+                    "CommandName",
+                    "CommandNameBar",
+                    "KeyboardShortcut",
+                    "KeyboardShortcutBar",
+                    "SectionNumber",
+                    "SectionNumberBar",
+                    "SectionTitle",
+                    "SectionTitleBar",
+                    "AdditionalInfo",
+                    "AdditionalInfoBar"]
+
+        header = ""
+        for heading in headings:
+            header += (heading + "\t")
+        header += "\n"
+
+        print header
+        for timecode_string, command_name, keyboard_shortcut in callouts:
+            print " \t%s\t%s\t%s" % (timecode_string, command_name, keyboard_shortcut)
 
 
 
