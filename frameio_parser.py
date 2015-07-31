@@ -1,11 +1,22 @@
 """Frame.io Comment Export Parser
-(Eventually will...) Takes a "export.txt" in the same directory and converts it into a usable format for pasting into GoogleSheets.
+(Eventually will...) Take "export.txt" from the script's directory and convert it a tab-delimited format
+ for pasting into GoogleSheets.
+
+ It looks for comments in a format extremely particular to my workflow, and is probably not of general use without
+ extensive rewrites.
 
 Looks for comments of this format:
-CALLOUT: Command Name | Keyboard Shortcut
-SECTION HEADING: This is The Heading
-SECTION: Section Heading
+CALLOUT: Copy | Ctrl/Cmd + C
+HEADER: Part 02 | Modeling the Ship
+INFO: Longer strings should go in here. Yep, that's definitely true.
 
+It also gracefully handles these typos / alternates:
+SECTION:
+SECTOIN: 
+SECTION HEADING:
+SECTOIN HEADING
+HEADING
+HEADER
 """
 
 import os
@@ -17,6 +28,38 @@ def copy_to_clipboard(text):
     """
 
     os.system("echo '%s' | pbcopy" % text)
+
+def get_callout(timecode_string, comment, callout_pattern="CALLOUT: ", row_format=" \t%s\t%s\t%s"):
+    """Converts a raw comment into a timecode, first_half, second_half tuple."""
+
+    if not comment:
+        return
+
+    #Get the keyboard callouts
+    callout_pattern = callout_pattern.lower()
+    callout_pattern_length = len(callout_pattern)
+
+    if comment[:callout_pattern_length].lower() == callout_pattern:
+        callout_string = comment[callout_pattern_length:]
+
+        #Get the first and second halves, don't split the second half if you see more "|"
+        callout_components = callout_string.split("|", 1)
+
+        def strip_components(components):
+            new_components = []
+            for component in components:
+                new_components.append(component.strip())
+            return new_components
+
+        callout_components = strip_components(callout_components)
+
+        first_half = callout_components[0]
+        second_half = ""
+
+        if len(callout_components) > 1:
+            second_half = callout_components[1]
+
+        return row_format % (timecode_string, first_half, second_half)
 
 def main():
     timecode_style = "00:00:00:00"
@@ -39,6 +82,19 @@ def main():
 
     with open('export.txt') as f:
         lines = f.readlines()
+
+        headings = ["ID",
+                    "Timecode",
+                    "CommandName",
+                    "CommandNameBar",
+                    "KeyboardShortcut",
+                    "KeyboardShortcutBar",
+                    "SectionNumber",
+                    "SectionNumberBar",
+                    "SectionTitle",
+                    "SectionTitleBar",
+                    "AdditionalInfo",
+                    "AdditionalInfoBar"]
 
         callouts = []
         for line in lines:
@@ -63,52 +119,26 @@ def main():
             print "-------------------"
             print "Comment: ", comment
 
-            def get_callout(comment, callout_pattern="CALLOUT: ", row_format=" \t%s\t%s\t%s"):
-                if not comment:
-                    return
+            section_format = " \t%s\t \t \t \t \t%s\t \t%s"
 
-                #Get the keyboard callouts
-                callout_pattern = callout_pattern.lower()
-                callout_pattern_length = len(callout_pattern)
+            callout_types = [
+                ("CALLOUT: ", " \t%s\t%s\t%s"),
 
-                if comment[:callout_pattern_length].lower() == callout_pattern:
-                    callout_string = comment[callout_pattern_length:]
+                ("SECTION: ", section_format),
+                ("SECTOIN: ", section_format),
+                ("SECTION HEADING: ", section_format),
+                ("SECTOIN HEADING: ", section_format),
+                ("HEADING: ", section_format),
+                ("HEADER: ", section_format),
+                ("INFO: ", " \t%s\t \t \t \t \t \t \t \t \t%s %s")
+            ]
 
-                    #Get the first and second halves, don't split the second half if you see more "|"
-                    callout_components = callout_string.split("|", 1)
+            for callout_type in callout_types:
+                callout_pattern, row_format = callout_type
+                callout = get_callout(timecode_string, comment, callout_pattern, row_format)
 
-                    def strip_components(components):
-                        new_components = []
-                        for component in components:
-                            new_components.append(component.strip())
-                        return new_components
-
-                    callout_components = strip_components(callout_components)
-
-                    first_half = callout_components[0]
-                    second_half = ""
-
-                    if len(callout_components) > 1:
-                        second_half = callout_components[1]
-
-                    return row_format % (timecode_string, first_half, second_half)
-
-            callout = get_callout(comment)
-            if callout:
-                callouts.append(callout)
-
-        headings = ["ID",
-                    "Timecode",
-                    "CommandName",
-                    "CommandNameBar",
-                    "KeyboardShortcut",
-                    "KeyboardShortcutBar",
-                    "SectionNumber",
-                    "SectionNumberBar",
-                    "SectionTitle",
-                    "SectionTitleBar",
-                    "AdditionalInfo",
-                    "AdditionalInfoBar"]
+                if callout:
+                    callouts.append(callout)
 
         output = ""
         for heading in headings:
