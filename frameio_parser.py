@@ -29,14 +29,6 @@ def main():
 
         return True
 
-    with open('target.txt') as f:
-        lines = f.readlines()
-
-        print "TARGET"
-
-        for line in lines:
-            print line
-
     with open('export.txt') as f:
         lines = f.readlines()
 
