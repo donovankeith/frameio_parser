@@ -46,6 +46,13 @@ Sets
 [a-z] -> Lowercase letter between a & z
 [^2] -> Anything that is *not* 2
 
+Groups
+------
+(\w) -> Group a character
+(P<name>\w) -> Name the group 'name'
+
+regroup.groupdict() -> return the groups as named elements in a dictionary.
+
 """
 
 """
@@ -63,6 +70,9 @@ Flags
 -----
 
 re.IGNORECASE or re.I -> Ignores case
+re.MULTILINE -> Each line as string
+re.VERBOSE -> Use multiline comment string
+re.X -> Verbose
 
 
 Multiline Regex Comments
@@ -109,17 +119,17 @@ def print_comments():
 
         # print(re.findall(r"\d{2}:\d{2}:\d{2}:\d{2}", comments_file.text))
 
-        print(re.findall(r'''
-            (\d{3})\s-\s  #Primary Comment ID
-            (\w+)\s  # First Name
-            (\w+)\s-\s  # Last Name
-            (\d+):  # Hour
-            (\d\d)  # Minute
-            (\w\w)\s  # AM/PM
-            (\w+)\s  # Month
-            (\d{1,})\w\w,\s  # Day
-            (\d{4})  # Year
-''', comments_file.text, re.VERBOSE))
+        lines = re.findall(r'''
+            (?P<comment_id>\d{3})\s-\s  #Primary Comment ID
+            (?P<first_name>\w+)\s  # First Name
+            (?P<last_name>\w+)\s-\s  # Last Name
+            (?P<hour>\d+):  # Hour
+            (?P<minute>\d\d)  # Minute
+            (?P<am_pm>\w\w)\s  # AM/PM
+            (?P<month_name>\w+)\s  # Month
+            (?P<day>\d{1,})\w\w,\s  # Day
+            (?P<year>\d{4})  # Year
+''', comments_file.text, re.VERBOSE)
 
 
 
