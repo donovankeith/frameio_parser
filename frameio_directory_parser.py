@@ -1,5 +1,11 @@
 """Frame.io Directory Parser
 Creates objects based on any text file contained in a "comments" directory.
+
+TODO
+----
+
+[ ] All Comments to dicts
+
 """
 
 import os
@@ -21,6 +27,7 @@ Character Types
 \b -> word boundaries / edges of a word
 \B -> anything that ISN'T
 \ -> Escape
+. -> All characters except Newline
 
 lowercase -> MATCH
 UPPERCASE -> Match NOT that Thing
@@ -102,8 +109,9 @@ class FrameioVideo:
     def __init__(self, file_path):
         self.file_path = file_path
         self.file = open(file_path)
-        # self.video_file_name = self.file.readline()
         self.text = self.file.read()
+
+        self.video_file_name = re.match((.+)\.+)
 
 
     def __str__(self):
@@ -113,25 +121,32 @@ def print_comments():
     """Print the contents of all .txt comments files in comments directory."""
 
     for comments_file_path in iter_comment_files():
+        print comments_file_path
         comments_file = FrameioVideo(comments_file_path)
         # print comments_file.video_file_name
         # print comments_file.text
 
         # print(re.findall(r"\d{2}:\d{2}:\d{2}:\d{2}", comments_file.text))
 
-        lines = re.findall(r'''
+        timecode_comment_pattern = re.compile(r'''(?P<timecode>\d\d:\d\d:\d\d:\d\d) - (?P<comment>.+)\n''')
+
+        comment_pattern = re.compile(r'''
             (?P<comment_id>\d{3})\s-\s  #Primary Comment ID
             (?P<first_name>\w+)\s  # First Name
             (?P<last_name>\w+)\s-\s  # Last Name
             (?P<hour>\d+):  # Hour
             (?P<minute>\d\d)  # Minute
-            (?P<am_pm>\w\w)\s  # AM/PM
+            (?P<period>\w\w)\s  # AM/PM
             (?P<month_name>\w+)\s  # Month
             (?P<day>\d{1,})\w\w,\s  # Day
             (?P<year>\d{4})  # Year
-''', comments_file.text, re.VERBOSE)
+''', re.VERBOSE)
 
+        for match in timecode_comment_pattern.finditer(comments_file.text):
+            print match.groupdict()
 
+        for match in comment_pattern.finditer(comments_file.text):
+            print match.groupdict()
 
 if __name__ == '__main__':
     print_comments()
