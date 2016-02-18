@@ -3,6 +3,7 @@ Creates objects based on any text file contained in a "comments" directory.
 """
 
 import os
+import re
 
 def iter_comment_files():
     """Yields each file_path for `.txt` files in `./comments` directory."""
@@ -14,13 +15,23 @@ def iter_comment_files():
                 file_path = os.path.join(root, file_name)
                 yield file_path
 
+class Comments:
+    """Class for comments."""
+
+    def __init__(self, file_path):
+        self.file_path = file_path
+        self.file = open(file_path)
+        self.text = self.file.read()
+
+    def __str__(self):
+        return self.text
+
 def print_comments():
     """Print the contents of all .txt comments files in comments directory."""
 
     for comments_file_path in iter_comment_files():
-        comments_file = open(comments_file_path)
-        comments_text = comments_file.read()
-        print comments_text
+        comments_file = Comments(comments_file_path)
+        print comments_file
 
 if __name__ == '__main__':
     print_comments()
