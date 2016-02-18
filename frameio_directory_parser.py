@@ -5,7 +5,13 @@ Creates objects based on any text file contained in a "comments" directory.
 import os
 import re
 
-""" Regular Expression Notes
+"""
+Regular Expression Notes
+========================
+
+Character Types
+---------------
+
 \w -> any AAbb10_
 \W -> anything that's not a word
 \s -> whitespace
@@ -19,6 +25,10 @@ import re
 lowercase -> MATCH
 UPPERCASE -> Match NOT that Thing
 
+
+Counts
+------
+
 {3}     Happens 3 times
 {,3}    0-3 times
 {3,}    3+ times
@@ -27,7 +37,44 @@ UPPERCASE -> Match NOT that Thing
 ? 0-1 times
 * 0+ times
 + 1+ times
+
+
+Sets
+----
+
+[aple] -> Any of these characters
+[a-z] -> Lowercase letter between a & z
+[^2] -> Anything that is *not* 2
+
 """
+
+"""
+
+First Comment
+-------------
+
+ID: r'\d{3} - '
+
+Timecode: r'\d\d:\d\d:\d\d:\d\d'
+Time: r'\d{2}:\d{2}\w\w'
+
+
+Flags
+-----
+
+re.IGNORECASE or re.I -> Ignores case
+
+
+Multiline Regex Comments
+-------------------------
+re.findall(r'''
+    \w  # Find a word
+    \d  # Find a digit
+'''
+, data, re.VERBOSE|re.IGNORECASE)
+
+"""
+
 
 def iter_comment_files():
     """Yields each file_path for `.txt` files in `./comments` directory."""
@@ -60,7 +107,21 @@ def print_comments():
         # print comments_file.video_file_name
         # print comments_file.text
 
-        print(re.search(r"\d\d:\d\d:\d\d:\d\d", comments_file.text))
+        # print(re.findall(r"\d{2}:\d{2}:\d{2}:\d{2}", comments_file.text))
+
+        print(re.findall(r'''
+            (\d{3})\s-\s  #Primary Comment ID
+            (\w+)\s  # First Name
+            (\w+)\s-\s  # Last Name
+            (\d+):  # Hour
+            (\d\d)  # Minute
+            (\w\w)\s  # AM/PM
+            (\w+)\s  # Month
+            (\d{1,})\w\w,\s  # Day
+            (\d{4})  # Year
+''', comments_file.text, re.VERBOSE))
+
+
 
 if __name__ == '__main__':
     print_comments()
