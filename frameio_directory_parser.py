@@ -5,6 +5,30 @@ Creates objects based on any text file contained in a "comments" directory.
 import os
 import re
 
+""" Regular Expression Notes
+\w -> any AAbb10_
+\W -> anything that's not a word
+\s -> whitespace
+\S -> not whitespace
+\d -> 0123456789
+\D -> not a number
+\b -> word boundaries / edges of a word
+\B -> anything that ISN'T
+\ -> Escape
+
+lowercase -> MATCH
+UPPERCASE -> Match NOT that Thing
+
+{3}     Happens 3 times
+{,3}    0-3 times
+{3,}    3+ times
+{3,5}   3, 4, or 5 times
+
+? 0-1 times
+* 0+ times
++ 1+ times
+"""
+
 def iter_comment_files():
     """Yields each file_path for `.txt` files in `./comments` directory."""
 
@@ -34,7 +58,9 @@ def print_comments():
     for comments_file_path in iter_comment_files():
         comments_file = FrameioVideo(comments_file_path)
         # print comments_file.video_file_name
-        print comments_file.text
+        # print comments_file.text
+
+        print(re.search(r"\d\d:\d\d:\d\d:\d\d", comments_file.text))
 
 if __name__ == '__main__':
     print_comments()
