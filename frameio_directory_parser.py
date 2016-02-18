@@ -15,13 +15,15 @@ def iter_comment_files():
                 file_path = os.path.join(root, file_name)
                 yield file_path
 
-class Comments:
-    """Class for comments."""
+class FrameioVideo:
+    """Class for storing Frame.io Video Info from Comments.txt exports."""
 
     def __init__(self, file_path):
         self.file_path = file_path
         self.file = open(file_path)
+        # self.video_file_name = self.file.readline()
         self.text = self.file.read()
+
 
     def __str__(self):
         return self.text
@@ -30,8 +32,9 @@ def print_comments():
     """Print the contents of all .txt comments files in comments directory."""
 
     for comments_file_path in iter_comment_files():
-        comments_file = Comments(comments_file_path)
-        print comments_file
+        comments_file = FrameioVideo(comments_file_path)
+        # print comments_file.video_file_name
+        print comments_file.text
 
 if __name__ == '__main__':
     print_comments()
