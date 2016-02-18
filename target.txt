@@ -1,0 +1,5 @@
+ID	Timecode	CommandName	CommandNameBar	KeyboardShortcut	KeyboardShortcutBar	SectionNumber	SectionNumberBar	SectionTitle	SectionTitleBar	AdditionalInfo	AdditionalInfoBar   Video
+00-00-00	00:00:00	Copy		Ctrl/Cmd + C		Step 01		Sampling Colors		Color Pipette is invisible to screen recording software.
+00-00-22	00:00:22		{{off}}		{{off}}	Sampling Colors from the Cineversity Website			{{off}}		{{off}}
+00-00-52	00:00:52	Pick Color from Screen		Click on Color Pipette, Then Click on Screen			{{off}}		{{off}}		{{off}}
+00-01-04	00:01:04		{{off}}		{{off}}		{{off}}		{{off}}	Color Pipette is invisible to screen recording software.

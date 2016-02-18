@@ -1,0 +1,24 @@
+boston_terrier_uv.mp4
+Version 1 - Patrick Goski - 9:54AM January 26th, 2016
+
+000 - Rick Barrett - 10:57AM January 26th, 2016
+00:00:03:05 - Audio on one side only?
+
+	Patrick Goski - 11:27AM January 26th, 2016
+	It's some issue with Camtasia and my mic. for the final video I pull the audio out and create a proper mono track.
+
+001 - Rick Barrett - 11:04AM January 26th, 2016
+00:16:15:15 -   Really good. I don't see any issues. You're kinda good at this - you should do it more often :)
+
+	Donovan Keith - 2:39PM January 27th, 2016
+	Agreed!
+
+002 - Patrick Goski - 12:15PM February 16th, 2016
+00:03:28:12 - CALLOUT: Select All | SHIFT + A
+
+003 - Patrick Goski - 12:23PM February 16th, 2016
+00:07:17:21 - CALLOUT: Path Selection | U~M
+
+004 - Patrick Goski - 12:25PM February 16th, 2016
+00:06:26:20 - CALLOUT: Hold Ctrl to Remove from Current Selection
+

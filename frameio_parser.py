@@ -107,10 +107,18 @@ def main():
                     "SectionTitle",
                     "SectionTitleBar",
                     "AdditionalInfo",
-                    "AdditionalInfoBar"]
+                    "AdditionalInfoBar",
+                    "Video"]
+
+        first_line = True
+        video_name = ""
 
         callouts = []
         for line in lines:
+            if first_line:
+                first_line = False
+                video_name = video_name[:-4] #RemoveFileExtension
+
             #Don't read in lines that don't have timecode style + " - " delimeter
             if len(line) < timecode_length + 3:
                 continue

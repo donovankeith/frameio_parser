@@ -1,0 +1,15 @@
+bt_environment.mp4
+Version 1 - Patrick Goski - 11:42AM January 28th, 2016
+
+000 - Rick Barrett - 12:49PM January 28th, 2016
+00:13:09:19 - Interesting technique
+
+001 - Rick Barrett - 12:50PM January 28th, 2016
+00:16:04:02 - Looks good.
+
+002 - Patrick Goski - 11:44AM February 17th, 2016
+00:03:47:02 - INFO: You can also easily adjust the length by changing the position of the splines.
+
+003 - Patrick Goski - 11:55AM February 17th, 2016
+00:12:17:23 - INFO: You can also use a target light to help position the lights. Use a target null to get exact control over where the light points.
+

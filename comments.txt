@@ -1,0 +1,116 @@
+boston_terrier_uv.mp4
+Version 1 - Patrick Goski - 9:54AM January 26th, 2016
+
+000 - Rick Barrett - 10:57AM January 26th, 2016
+00:00:03:05 - Audio on one side only?
+
+	Patrick Goski - 11:27AM January 26th, 2016
+	It's some issue with Camtasia and my mic. for the final video I pull the audio out and create a proper mono track.
+
+001 - Rick Barrett - 11:04AM January 26th, 2016
+00:16:15:15 -   Really good. I don't see any issues. You're kinda good at this - you should do it more often :)
+
+	Donovan Keith - 2:39PM January 27th, 2016
+	Agreed!
+
+002 - Patrick Goski - 12:15PM February 16th, 2016
+00:03:28:12 - CALLOUT: Select All | SHIFT + A
+
+003 - Patrick Goski - 12:23PM February 16th, 2016
+00:07:17:21 - CALLOUT: Path Selection | U~M
+
+004 - Patrick Goski - 12:25PM February 16th, 2016
+00:06:26:20 - CALLOUT: Hold Ctrl to Remove from Current Selection
+
+bt_sculpt.mp4
+Version 1 - Patrick Goski - 10:19AM January 27th, 2016
+
+000 - Rick Barrett - 11:19AM January 28th, 2016
+00:00:31:00 - It's not completely clear at this point how what we're going to do differs from sculpting displacement. I don't think it needs a re-record, but maybe we could pop up a callout "We'll be using the sculpting tools to directly manipulate the polygons and points. Use the Sculpt tag if you plan to bake displacement" (is that right?)
+
+	Patrick Goski - 11:30AM January 28th, 2016
+	Haha, yeah. This I realized to late, because I was really keen on showing working with polygons and how fluid it can be.
+
+	Patrick Goski - 11:31AM January 28th, 2016
+	I had considered doing a video where I show using the unsubdivide command to take all the work we did and dump it into a sculpt tag. :D
+
+	Patrick Goski - 11:52AM January 28th, 2016
+	It kind of sucks, because I know the best workflow is just go sculpt tag, but I like all the little tidbits that arise, and troubleshooting.
+
+001 - Rick Barrett - 11:25AM January 28th, 2016
+00:03:33:06 -  Didn't realize that you could sculpt in model mode (without a sculpt tag) #protip
+
+002 - Rick Barrett - 11:29AM January 28th, 2016
+00:05:22:04 - You say bring in here, but don't explain how that works. Add a callout something like "To invert a brush (sculpt inward), hold the control key)"
+
+003 - Rick Barrett - 11:31AM January 28th, 2016
+00:05:33:06 - Might be too tight with the previous (more important) callout, but it would be nice to reinforce with a callout "Temporary Smooth Mode: Shift"
+
+	Patrick Goski - 11:32AM January 28th, 2016
+	I was thinking this too. I try to callout the modifiers as I use them...but trying to maintain speed and calling everything out is tough.
+
+004 - Rick Barrett - 11:35AM January 28th, 2016
+00:08:08:22 - Might be worth a callout here to remind people that MMB drag adjusts the size of the brush.
+
+005 - Rick Barrett - 11:36AM January 28th, 2016
+00:08:36:13 - Might be a good point for a cut - since you've done the initial sculpt and you're returning to some modeling tasks
+
+006 - Rick Barrett - 11:40AM January 28th, 2016
+00:08:55:23 - or here
+
+007 - Rick Barrett - 11:56AM January 28th, 2016
+00:13:12:14 - Cut here?
+
+008 - Rick Barrett - 12:03PM January 28th, 2016
+00:23:23:12 - Didn't we add a mirror option in one of the latest releases? Does that only work with the Sculpt tag?
+
+009 - Rick Barrett - 12:04PM January 28th, 2016
+00:23:43:20 - This is a good cut point - maybe skip the Ears cut I listed earlier
+
+010 - Rick Barrett - 12:06PM January 28th, 2016
+00:23:30:20 - No optimize?
+
+011 - Rick Barrett - 12:08PM January 28th, 2016
+00:26:37:05 - It doesn't matter that the last selection was sloppy? Also - might be nice to add a brief description of UV Terrace in a callout - I have no idea what it does.
+
+012 - Rick Barrett - 12:12PM January 28th, 2016
+00:29:44:22 - Cut here
+
+013 - Rick Barrett - 12:23PM January 28th, 2016
+00:36:12:17 - Looks really good. I marked a few spots that I think would be good places to split this into a few parts so it's a bit more manageable. Other than that and a few callouts I think it's good.
+
+014 - Patrick Goski - 12:42PM February 16th, 2016
+00:00:26:04 - INFO: In this project all sculpting will happen directly on the polygon mesh. You could also use a sculpt tag to achieve similar and then export the top level when you finish.
+
+015 - Patrick Goski - 1:04PM February 16th, 2016
+00:04:25:11 - CALLOUT: Reverse Brush Direction | CTRL + LMB
+
+016 - Patrick Goski - 1:09PM February 16th, 2016
+00:05:41:02 - CALLOUT: Smooth Brush Modifier | Hold SHIFT While Clicking
+
+017 - Patrick Goski - 1:11PM February 16th, 2016
+00:07:50:13 - CALLOUT: Adjust Brush Radius | MMB Drag Left and Right
+
+018 - Patrick Goski - 1:13PM February 16th, 2016
+00:09:16:22 - INFO: While the following method is good, the one shortcoming is that we will need to rebuild the UV map. If you were using the sculpt tag you could focus your effort on one side and then use the Sculpt Symmetry tools.
+
+019 - Patrick Goski - 1:15PM February 16th, 2016
+00:10:13:04 - CALLOUT: Fill Selection | U~F
+
+020 - Patrick Goski - 1:17PM February 16th, 2016
+00:11:38:11 - CALLOUT: Select Loop | Double Click an edge
+
+021 - Patrick Goski - 1:38PM February 16th, 2016
+00:23:15:18 - INFO: While this doesn't take to much effort to perform, this action could have been avoided if the sculpt tag was used. As you could utilize the "Sculpt Symmetry" function.
+
+022 - Patrick Goski - 1:41PM February 16th, 2016
+00:23:35:15 - INFO: You may also want to run "Optimize" set to "Unused Points" but it is not important at this point.
+
+023 - Patrick Goski - 1:46PM February 16th, 2016
+00:26:19:02 - INFO: This selection does not need to be incredibly exact, as the function will only work on points on an open edge.
+
+024 - Patrick Goski - 1:47PM February 16th, 2016
+00:27:17:20 - INFO: The face or Torso may not be perfectly aligned for you, if this is the case continue watching as that case will be covered later.
+
+025 - Patrick Goski - 1:58PM February 16th, 2016
+00:35:47:14 - INFO: Obviously, much more time can be spent on refining the details for the model, and I definitely recommend taking more time to practice on your own. Sculpting is an art form, and takes practice.
