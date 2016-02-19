@@ -74,7 +74,7 @@ def get_callout(timecode_string, comment, callout_pattern="CALLOUT: ", row_forma
 
         return row_format % (timecode_string, first_half, second_half)
 
-def main():
+def parse_file(filename):
     timecode_style = "00:00:00:00"
     timecode_length = len(timecode_style)
 
@@ -93,7 +93,7 @@ def main():
 
         return True
 
-    with open('comments.txt') as f:
+    with open(filename) as f:
         lines = f.readlines()
 
         headings = ["ID",
@@ -110,14 +110,8 @@ def main():
                     "AdditionalInfoBar",
                     "Video"]
 
-        first_line = True
-        video_name = ""
-
         callouts = []
         for line in lines:
-            if first_line:
-                first_line = False
-                video_name = video_name[:-4] #RemoveFileExtension
 
             #Don't read in lines that don't have timecode style + " - " delimeter
             if len(line) < timecode_length + 3:
@@ -137,8 +131,8 @@ def main():
             lead_in_length = len(lead_in)
 
             comment = line[lead_in_length:]
-            print "-------------------"
-            print "Comment: ", comment
+            # print "-------------------"
+            # print "Comment: ", comment
 
             section_format = " \t%s\t\t\t\t\t%s\t\t%s"
 
@@ -169,8 +163,19 @@ def main():
         for callout in callouts:
             output += (callout + "\n")
 
-        print output
-        copy_to_clipboard(output)
+        return output
+
+
+def main():
+    output = ''
+
+    for root, dirs, files in os.walk("./comments"):
+        for file_name in files:
+            if file_name.endswith('.txt'):
+                file_path = os.path.join(root, file_name)
+                output += parse_file(file_path)
+
+    print output
 
 if __name__ == "__main__":
     main()
