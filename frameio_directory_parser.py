@@ -103,6 +103,13 @@ def iter_comment_files():
                 file_path = os.path.join(root, file_name)
                 yield file_path
 
+class Callout:
+    def __init__(self, timecode_comment):
+        """Takes a {"timecode": '00:00:00:00', "comment": 'CALLOUT: Text'} and turns it into a Callout."""
+
+        self.timecode = timecode_comment['timecode']
+        self.comment = timecode_comment['comment']
+
 class FrameioVideo:
     """Class for storing Frame.io Video Info from Comments.txt exports."""
 
@@ -111,9 +118,6 @@ class FrameioVideo:
         self.file = open(file_path)
         self.video_file_name = self.file.readline()[:-5] #From lines like: "boston_terrier_uv.mp4\n"
         self.text = self.file.read()
-
-        self.timecode_comments = []
-        self.parse_timecode_comments()
 
     def parse_timecode_comments(self):
         timecode_comment_pattern = re.compile(r'''

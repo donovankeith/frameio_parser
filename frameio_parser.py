@@ -94,6 +94,7 @@ def main():
         return True
 
     with open('comments.txt') as f:
+        video_filename = f.readline()[:-5] #Video Filename
         lines = f.readlines()
 
         headings = ["ID",
