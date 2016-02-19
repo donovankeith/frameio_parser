@@ -34,6 +34,19 @@ TO DO
 
 import os
 
+HEADINGS = ["Video",
+            "Timecode",
+            "CommandName",
+            "CommandNameBar",
+            "KeyboardShortcut",
+            "KeyboardShortcutBar",
+            "SectionNumber",
+            "SectionNumberBar",
+            "SectionTitle",
+            "SectionTitleBar",
+            "AdditionalInfo",
+            "AdditionalInfoBar"]
+
 def copy_to_clipboard(text):
     """Copy text to OS clipboard.
     Source: http://stackoverflow.com/questions/11063458/python-script-to-copy-text-to-clipboard
@@ -94,21 +107,8 @@ def parse_file(filename):
         return True
 
     with open(filename) as f:
+        video_filename = f.readline()[:-5]
         lines = f.readlines()
-
-        headings = ["ID",
-                    "Timecode",
-                    "CommandName",
-                    "CommandNameBar",
-                    "KeyboardShortcut",
-                    "KeyboardShortcutBar",
-                    "SectionNumber",
-                    "SectionNumberBar",
-                    "SectionTitle",
-                    "SectionTitleBar",
-                    "AdditionalInfo",
-                    "AdditionalInfoBar",
-                    "Video"]
 
         callouts = []
         for line in lines:
@@ -134,10 +134,10 @@ def parse_file(filename):
             # print "-------------------"
             # print "Comment: ", comment
 
-            section_format = " \t%s\t\t\t\t\t%s\t\t%s"
+            section_format = " %s\t\t\t\t\t%s\t\t%s"
 
             callout_types = [
-                ("CALLOUT: ", " \t%s\t%s\t\t%s"),
+                ("CALLOUT: ", " %s\t%s\t\t%s"),
 
                 ("SECTION: ", section_format),
                 ("SECTOIN: ", section_format),
@@ -145,7 +145,7 @@ def parse_file(filename):
                 ("SECTOIN HEADING: ", section_format),
                 ("HEADING: ", section_format),
                 ("HEADER: ", section_format),
-                ("INFO: ", " \t%s\t\t\t\t\t\t\t\t\t%s %s")
+                ("INFO: ", " %s\t\t\t\t\t\t\t\t\t%s %s")
             ]
 
             for callout_type in callout_types:
@@ -156,18 +156,18 @@ def parse_file(filename):
                     callouts.append(callout)
 
         output = ""
-        for heading in headings:
-            output += (heading + "\t")
-        output += "\n"
 
         for callout in callouts:
-            output += (callout + "\n")
+            output += (video_filename + "\t" + callout + "\n")
 
         return output
 
 
 def main():
     output = ''
+    for heading in HEADINGS:
+        output += (heading + "\t")
+    output += "\n"
 
     for root, dirs, files in os.walk("./comments"):
         for file_name in files:
